@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, send_file
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from datetime import datetime
 import os
 
@@ -51,21 +51,33 @@ def gerar_pdf():
     if not os.path.exists("static"):
         os.makedirs("static")  # Cria a pasta 'static' se não existir
 
+    # Estilos constumizados
+    cabeca_style = ParagraphStyle(name='CabeçaStyle', fontName='Times-Bold', fontSize=14, leading=40, alignment=1, spaceBefore=10, spaceAfter=10)
+    titulo_style = ParagraphStyle(name='TítuloStyle', fontName='Times-Bold', fontSize=18, leading=40, alignment=1, spaceBefore=20, spaceAfter=10)
+    campos_style = ParagraphStyle(name='CamposStyle', fontName='Times-Roman', fontSize=14, leading=12, alignment=0, spaceBefore=10, spaceAfter=10)
+
     # Configurações do PDF
     pdf = SimpleDocTemplate(caminho_pdf, pagesize=A4)
     styles = getSampleStyleSheet()
     styles['Normal'].fontName = 'Times-Roman'
+    story = []
+
+    # Adicionar LOGO
+    image_path = "back-end/venv/static/Logo.png"
+    image_width = 112
+    image_height = 112
+
+    story.append(Image(image_path, width=image_width, height=image_height))
 
     # Conteúdo do PDF
-    story = []
-    story.append(Paragraph(f'COLETIVO DE ARTES INTEGRADAS OPERÁRIOS PELA ARTE', styles['Normal']))
-    story.append(Paragraph(f'PLANO DE ENCONTRO DIA {dia}', styles['Normal']))
-    story.append(Paragraph(f'Local: {local}', styles['Normal']))
-    story.append(Paragraph(f'Horário: {horario}', styles['Normal']))
-    story.append(Paragraph(f'Direção: {direcao}', styles['Normal']))
-    story.append(Paragraph(f'Codireção: {codirecao}', styles['Normal']))
-    story.append(Paragraph(f'Objeto de Trabalho: {objeto}', styles['Normal']))
-    story.append(Paragraph(f'DIVISÃO DE HORÁRIOS', styles['Normal']))
+    story.append(Paragraph(f'COLETIVO DE ARTES INTEGRADAS OPERÁRIOS PELA ARTE', cabeca_style))
+    story.append(Paragraph(f'PLANO DE ENCONTRO DIA {dia}', titulo_style))
+    story.append(Paragraph(f'• Local: {local}', campos_style))
+    story.append(Paragraph(f'• Horário: {horario}', campos_style))
+    story.append(Paragraph(f'• Direção: {direcao}', campos_style))
+    story.append(Paragraph(f'• Codireção: {codirecao}', campos_style))
+    story.append(Paragraph(f'• Objeto de Trabalho: {objeto}', campos_style))
+    story.append(Paragraph(f'DIVISÃO DE HORÁRIOS', titulo_style))
 
     # Tabela
     data = [
@@ -86,7 +98,7 @@ def gerar_pdf():
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, -1), 'Times-Roman'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('FONTSIZE', (0, 0), (-1, -1), 14),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
     ])
@@ -95,7 +107,7 @@ def gerar_pdf():
     table.setStyle(style)
     story.append(table)
 
-    story.append(Paragraph(f'QUÓRUM: 8 membros', styles['Normal']))
+    story.append(Paragraph(f'• QUÓRUM: 8 membros', campos_style))
 
     # Gerando o PDF
     pdf.build(story)

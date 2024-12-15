@@ -4,61 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OPERÁRIOS PELA ARTE - PLANO DE ENCONTRO AUTOMÁTICO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Formulário</h1>
-    <form action="/gerar_pdf" method="post">
+    <header>
+        <div class="cabeca">
+            <img src="/static/Logo.png" alt="Logo OPERÁRIOS PELA ARTE" class="logo" width="112" height="112">
+            <h1>OPERÁRIOS PELA ARTE - SISTEMA ELETRÔNICO</h1>
+        </div>
+    </header>
 
-        <h2>Informações Gerais</h2>
+    <main>
+        <h1>PLANO DE TRABALHO</h1>
+        <form action="/gerar_pdf" method="post" autocomplete="off">
 
-        <label for="nome_base">Nome do Usuário</label>
-        <input type="text" name="nome_base" id="nome_base">
+            <h2>Informações Gerais</h2>
 
-        <label for="dia">Data do Encontro:</label>
-        <input type="text" name="dia" id="dia">
+            <label for="nome_base">Nome do Usuário</label>
+            <input type="text" name="nome_base" id="nome_base">
 
-        <label for="local">Local do Encontro</label>
-        <input type="text" name="local" id="local">
+            <label for="dia">Data do Encontro:</label>
+            <input type="text" name="dia" id="dia">
 
-        <label for="horario">Horário do Encontro</label>
-        <input type="text" name="horario" id="horario">
+            <label for="local">Local do Encontro</label>
+            <input type="text" name="local" id="local">
 
-        <label for="direcao">Direção:</label>
-        <input type="text" name="direcao" id="direcao">
+            <label for="horario">Horário do Encontro</label>
+            <input type="text" name="horario" id="horario">
 
-        <label for="codirecao">Codireção:</label>
-        <input type="text" name="codirecao" id="codirecao">
+            <label for="direcao">Direção:</label>
+            <input type="text" name="direcao" id="direcao">
 
-        <label for="objeto">Objeto de Trabalho:</label>
-        <input type="text" name="objeto" id="objeto">
+            <label for="codirecao">Codireção:</label>
+            <input type="text" name="codirecao" id="codirecao">
 
-        <h3>Horários e Atividades</h3>
+            <label for="objeto">Objeto de Trabalho:</label>
+            <input type="text" name="objeto" id="objeto">
+            
+            <!-- Linha Horizontal antes de "Horários e Atividades" -->
+            <hr class="linha">
 
-        <label for="hora1">14h30</label>
-        <input type="text" name="hora1" id="hora1">
+            <h3>Horários e Atividades</h3>
+            
+            <!-- Linha Horizontal depois de "Horários e Atividades" -->
+            <hr class="linha">
 
-        <label for="hora2">14h50</label>
-        <input type="text" name="hora2" id="hora2">
+            <label for="hora1">14h30</label>
+            <input type="text" name="hora1" id="hora1">
 
-        <label for="hora3">15h05</label>
-        <input type="text" name="hora3" id="hora3">
+            <label for="hora2">14h50</label>
+            <input type="text" name="hora2" id="hora2">
 
-        <label for="hora4">15h20</label>
-        <input type="text" name="hora4" id="hora4">
+            <label for="hora3">15h05</label>
+            <input type="text" name="hora3" id="hora3">
 
-        <label for="hora5">15h35</label>
-        <input type="text" name="hora5" id="hora5">
+            <label for="hora4">15h20</label>
+            <input type="text" name="hora4" id="hora4">
 
-        <label for="hora6">15h40</label>
-        <input type="text" name="hora6" id="hora6">
+            <label for="hora5">15h35</label>
+            <input type="text" name="hora5" id="hora5">
 
-        <label for="hora7">16h40</label>
-        <input type="text" name="hora7" id="hora7">
+            <label for="hora6">15h40</label>
+            <input type="text" name="hora6" id="hora6">
 
-        <label for="hora8">16h50</label>
-        <input type="text" name="hora8" id="hora8">
+            <label for="hora7">16h40</label>
+            <input type="text" name="hora7" id="hora7">
 
-        <button type="submit">Gerar Plano</button>
-    </form>
+            <label for="hora8">16h50</label>
+            <input type="text" name="hora8" id="hora8">
+
+            <button type="submit">Gerar Plano</button>
+        </form>
+    </main>
+
+    <footer>
+        <img src="/static/Logo.png" alt="Logo OPERÁRIOS PELA ARTE" class="logo" width="112" height="112">
+    </footer>
+
+    <script src="/static/script.js"></script>
 </body>
 </html>
